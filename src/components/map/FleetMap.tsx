@@ -1,0 +1,341 @@
+import React, { useEffect, useMemo } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import type { Vehicle, Trip, TripPoint } from '../../types/fleet';
+import { Fuel, Battery, Navigation, Play, Flag, Route } from 'lucide-react';
+
+interface FleetMapProps {
+  vehicles: Vehicle[];
+  selectedVehicle: Vehicle | null;
+  onSelectVehicle: (vehicle: Vehicle) => void;
+  selectedTrip?: Trip | null;
+  tripPoints?: TripPoint[];
+  onClearTrip?: () => void;
+  height?: string;
+}
+
+// Custom Leaflet DivIcon generator for vehicle status
+const createVehicleIcon = (status: string, isSelected: boolean) => {
+  let bgColor = 'bg-emerald-500';
+  let ringColor = 'ring-emerald-400/50';
+
+  if (status === 'idle') {
+    bgColor = 'bg-amber-500';
+    ringColor = 'ring-amber-400/50';
+  } else if (status === 'maintenance') {
+    bgColor = 'bg-orange-600';
+    ringColor = 'ring-orange-400/50';
+  } else if (status === 'offline') {
+    bgColor = 'bg-slate-500';
+    ringColor = 'ring-slate-400/50';
+  }
+
+  const selectedRing = isSelected ? 'ring-4 ring-indigo-400 scale-125 z-50' : 'ring-2';
+
+  const html = `
+    <div class="relative flex items-center justify-center transition-all duration-200">
+      <div class="w-8 h-8 rounded-full ${bgColor} ${ringColor} ${selectedRing} shadow-lg shadow-black/60 flex items-center justify-center text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 17h4V5H2v12h3m11 0h2m-9 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0m9 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0M14 8h5l3 5v4h-8z"/>
+        </svg>
+      </div>
+      ${isSelected ? '<div class="absolute -top-1 -right-1 w-3 h-3 bg-indigo-400 rounded-full animate-ping"></div>' : ''}
+    </div>
+  `;
+
+  return L.divIcon({
+    html,
+    className: 'custom-vehicle-marker',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -18],
+  });
+};
+
+// Route Start Icon (Green)
+const createStartIcon = () =>
+  L.divIcon({
+    html: `
+      <div class="w-7 h-7 rounded-full bg-emerald-600 border-2 border-white shadow-md flex items-center justify-center text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </div>
+    `,
+    className: 'start-marker',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+
+// Route End Icon (Checkered/Indigo)
+const createEndIcon = () =>
+  L.divIcon({
+    html: `
+      <div class="w-7 h-7 rounded-full bg-indigo-600 border-2 border-white shadow-md flex items-center justify-center text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+          <line x1="4" y1="22" x2="4" y2="15"/>
+        </svg>
+      </div>
+    `,
+    className: 'end-marker',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+
+// Controller component to zoom/pan programmatically
+const MapController: React.FC<{
+  selectedVehicle: Vehicle | null;
+  tripPoints?: TripPoint[];
+}> = ({ selectedVehicle, tripPoints }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (tripPoints && tripPoints.length > 1) {
+      const bounds = L.latLngBounds(tripPoints.map(p => [p.latitude, p.longitude]));
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+    } else if (selectedVehicle) {
+      map.flyTo([selectedVehicle.latitude, selectedVehicle.longitude], 14, {
+        duration: 1.2,
+      });
+    }
+  }, [selectedVehicle, tripPoints, map]);
+
+  return null;
+};
+
+export const FleetMap: React.FC<FleetMapProps> = ({
+  vehicles,
+  selectedVehicle,
+  onSelectVehicle,
+  selectedTrip,
+  tripPoints = [],
+  onClearTrip,
+  height = '580px',
+}) => {
+  // Center coordinates (Bengaluru Hub)
+  const defaultCenter: [number, number] = [12.9716, 77.5946];
+
+  // Prepare route coordinates for Polyline
+  const routePositions = useMemo(() => {
+    if (!tripPoints || tripPoints.length === 0) return [];
+    return tripPoints
+      .sort((a, b) => a.sequence_number - b.sequence_number)
+      .map(p => [p.latitude, p.longitude] as [number, number]);
+  }, [tripPoints]);
+
+  return (
+    <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-slate-900" style={{ height }}>
+      {/* Map Floating Control Header */}
+      <div className="absolute top-4 left-4 z-[400] flex flex-wrap items-center gap-2 pointer-events-auto">
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl px-3.5 py-2 shadow-lg flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-1.5 font-semibold text-white">
+            <Navigation className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Vehicles: {vehicles.length}</span>
+          </div>
+
+          <div className="h-3.5 w-px bg-slate-700" />
+
+          {/* Legend dots */}
+          <div className="flex items-center gap-2 text-[11px] text-slate-300">
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" /> Active
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-amber-500" /> Idle
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-orange-600" /> Maint
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-slate-500" /> Offline
+            </span>
+          </div>
+        </div>
+
+        {/* Selected Trip Banner */}
+        {selectedTrip && (
+          <div className="bg-indigo-950/90 backdrop-blur-md border border-indigo-700/80 rounded-xl px-3.5 py-1.5 shadow-lg flex items-center gap-3 text-xs text-indigo-200">
+            <div className="flex items-center gap-1.5 font-medium">
+              <Route className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Route: {selectedTrip.start_location} → {selectedTrip.end_location} ({selectedTrip.distance_km} km)</span>
+            </div>
+            {onClearTrip && (
+              <button
+                onClick={onClearTrip}
+                className="text-[11px] bg-indigo-800/80 hover:bg-indigo-700 px-2 py-0.5 rounded text-white cursor-pointer"
+              >
+                Clear Route
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Selected Vehicle Floating Card (Bottom-Right) */}
+      {selectedVehicle && (
+        <div className="absolute bottom-4 right-4 z-[400] max-w-sm w-full bg-slate-900/95 backdrop-blur-md border border-slate-700/90 rounded-2xl p-4 shadow-2xl text-slate-100 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="flex items-start justify-between mb-2">
+            <div>
+              <div className="text-xs font-mono text-indigo-400 font-semibold tracking-wide">
+                {selectedVehicle.registration_number}
+              </div>
+              <div className="font-bold text-white text-sm">{selectedVehicle.model}</div>
+            </div>
+            <span
+              className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                selectedVehicle.status === 'active'
+                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                  : selectedVehicle.status === 'idle'
+                  ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                  : selectedVehicle.status === 'maintenance'
+                  ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                  : 'bg-slate-600/20 text-slate-400 border border-slate-600/30'
+              }`}
+            >
+              {selectedVehicle.status}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 text-xs py-2 my-2 border-y border-slate-800">
+            <div>
+              <span className="text-slate-400 text-[11px] block">Driver</span>
+              <span className="font-medium text-slate-200">{selectedVehicle.driver_name}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 text-[11px] block">Ignition</span>
+              <span className={`font-medium ${selectedVehicle.ignition_on ? 'text-emerald-400' : 'text-slate-400'}`}>
+                {selectedVehicle.ignition_on ? 'ON (Engine Running)' : 'OFF'}
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Fuel className="w-3.5 h-3.5 text-amber-400" />
+              <span className="font-mono text-slate-200">{selectedVehicle.fuel_level}% Fuel</span>
+            </div>
+            {selectedVehicle.battery_level !== null && (
+              <div className="flex items-center gap-1.5">
+                <Battery className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="font-mono text-slate-200">{selectedVehicle.battery_level}% Battery</span>
+              </div>
+            )}
+          </div>
+
+          <div className="text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Last Ping: {new Date(selectedVehicle.last_seen).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+            <span className="font-mono text-[10px] text-slate-500">
+              {selectedVehicle.latitude.toFixed(4)}, {selectedVehicle.longitude.toFixed(4)}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Leaflet Map Canvas */}
+      <MapContainer
+        center={defaultCenter}
+        zoom={12}
+        scrollWheelZoom={true}
+        className="w-full h-full"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        <MapController selectedVehicle={selectedVehicle} tripPoints={tripPoints} />
+
+        {/* Vehicle Markers */}
+        {vehicles.map(vehicle => {
+          const isSelected = selectedVehicle?.id === vehicle.id;
+          return (
+            <Marker
+              key={vehicle.id}
+              position={[vehicle.latitude, vehicle.longitude]}
+              icon={createVehicleIcon(vehicle.status, isSelected)}
+              eventHandlers={{
+                click: () => onSelectVehicle(vehicle),
+              }}
+            >
+              <Popup>
+                <div className="p-1 min-w-[200px]">
+                  <div className="font-bold text-slate-100 text-sm">{vehicle.registration_number}</div>
+                  <div className="text-xs text-slate-300 mb-2">{vehicle.model}</div>
+                  <div className="space-y-1 text-xs text-slate-300 border-t border-slate-700 pt-1.5">
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Driver:</span>
+                      <span className="font-medium">{vehicle.driver_name}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Status:</span>
+                      <span className="capitalize font-semibold text-emerald-400">{vehicle.status}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Fuel:</span>
+                      <span className="font-mono">{vehicle.fuel_level}%</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onSelectVehicle(vehicle)}
+                    className="w-full mt-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-1 px-2 rounded cursor-pointer transition"
+                  >
+                    Select Vehicle Details
+                  </button>
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
+
+        {/* GPS Trip Route Polyline */}
+        {routePositions.length > 1 && (
+          <>
+            {/* Outer glow stroke for route */}
+            <Polyline
+              positions={routePositions}
+              color="#4338ca"
+              weight={7}
+              opacity={0.4}
+            />
+            {/* Inner high-contrast route path */}
+            <Polyline
+              positions={routePositions}
+              color="#6366f1"
+              weight={4}
+              opacity={0.9}
+              dashArray="6, 8"
+            />
+
+            {/* Start Waypoint Marker */}
+            <Marker position={routePositions[0]} icon={createStartIcon()}>
+              <Popup>
+                <div className="p-1 text-xs text-slate-200">
+                  <div className="font-bold text-emerald-400 flex items-center gap-1">
+                    <Play className="w-3 h-3" /> Trip Origin
+                  </div>
+                  <div>{selectedTrip?.start_location || 'Origin Point'}</div>
+                  <div className="text-[10px] text-slate-400 mt-1">
+                    Departed: {selectedTrip ? new Date(selectedTrip.started_at).toLocaleTimeString() : ''}
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+
+            {/* End Waypoint Marker */}
+            <Marker position={routePositions[routePositions.length - 1]} icon={createEndIcon()}>
+              <Popup>
+                <div className="p-1 text-xs text-slate-200">
+                  <div className="font-bold text-indigo-400 flex items-center gap-1">
+                    <Flag className="w-3 h-3" /> Trip Destination
+                  </div>
+                  <div>{selectedTrip?.end_location || 'Destination'}</div>
+                  <div className="text-[10px] text-slate-400 mt-1">
+                    Arrived: {selectedTrip ? new Date(selectedTrip.ended_at).toLocaleTimeString() : ''}
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          </>
+        )}
+      </MapContainer>
+    </div>
+  );
+};
