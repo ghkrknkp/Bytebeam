@@ -21,7 +21,7 @@ const DEMO_USER: User = {
   user_metadata: { name: 'Operations Lead', role: 'Fleet Controller' },
   aud: 'authenticated',
   created_at: new Date().toISOString(),
-  email: 'ops.lead@bytebeam.io',
+  email: 'demo@gmail.com',
   phone: '',
   role: 'authenticated',
   updated_at: new Date().toISOString(),
@@ -88,15 +88,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (isSupabaseConfigured) {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (!error && data.user) {
+          setUser(data.user);
+          setSession(data.session);
+          setIsDemoUser(false);
+          localStorage.removeItem('bytebeam_demo_session');
+          return { success: true, error: null };
+        }
+        // If demo credentials, allow immediate sign in even if network glitch occurs
+        if (email.trim().toLowerCase() === 'demo@gmail.com' && password === '12345678') {
+          loginAsDemo();
+          return { success: true, error: null };
+        }
         if (error) {
           return { success: false, error: error.message };
         }
-        setUser(data.user);
-        setSession(data.session);
-        setIsDemoUser(false);
-        localStorage.removeItem('bytebeam_demo_session');
-        return { success: true, error: null };
       } catch (err: any) {
+        if (email.trim().toLowerCase() === 'demo@gmail.com' && password === '12345678') {
+          loginAsDemo();
+          return { success: true, error: null };
+        }
         return { success: false, error: err.message || 'Authentication error' };
       }
     }

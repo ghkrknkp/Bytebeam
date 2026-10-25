@@ -32,8 +32,8 @@ The **Bytebeam Fleet Operations Platform** is a production-grade commercial flee
 |---|---|
 | **Live Deployed URL** | [https://bytebeam-fleet.vercel.app](https://bytebeam-fleet.vercel.app) *(or your deployed Vercel URL)* |
 | **1-Click Instant Demo** | Click the **"Enter Console as Demo Dispatcher (1-Click)"** button on the login screen |
-| **Demo Operator Email** | `ops.lead@bytebeam.io` |
-| **Demo Password** | `Bytebeam@2026!` |
+| **Demo Operator Email** | `demo@gmail.com` |
+| **Demo Password** | `12345678` |
 | **Self-Registration** | Fully supported via the "Create Fleet Account" tab |
 
 ---

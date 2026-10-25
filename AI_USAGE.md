@@ -41,7 +41,7 @@ This document records the AI tools, methodologies, validations, and architectura
 
 ### Suggestion 4: Authentication UX for Reviewers
 - **Generated Suggestion**: Strict requirement that evaluators create a Supabase account and verify their email before seeing any UI.
-- **Review & Decision**: **Enhanced**. While full Supabase Auth is integrated and supported, requiring evaluators to configure cloud credentials before running the app creates friction. Added an **Instant Demo Access (1-Click Review)** pathway with mock operator credentials (`ops.lead@bytebeam.io`) alongside live Supabase authentication.
+- **Review & Decision**: **Enhanced**. While full Supabase Auth is integrated and supported, requiring evaluators to configure cloud credentials before running the app creates friction. Added an **Instant Demo Access (1-Click Review)** pathway with mock operator credentials (`demo@gmail.com`) alongside live Supabase authentication.
 
 ---
 

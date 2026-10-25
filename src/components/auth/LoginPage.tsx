@@ -40,8 +40,8 @@ export const LoginPage: React.FC = () => {
   };
 
   const fillDemo = () => {
-    setEmail('ops.lead@bytebeam.io');
-    setPassword('Bytebeam@2026!');
+    setEmail('demo@gmail.com');
+    setPassword('12345678');
     setErrorMessage(null);
   };
 
@@ -226,7 +226,7 @@ export const LoginPage: React.FC = () => {
                     required
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="ops.lead@bytebeam.io"
+                    placeholder="demo@gmail.com"
                     className="w-full rounded-xl pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 transition-all font-medium"
                   />
                 </div>
@@ -243,7 +243,7 @@ export const LoginPage: React.FC = () => {
                     onClick={fillDemo}
                     className="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer"
                   >
-                    Auto-fill demo credentials
+                    Auto-fill demo (demo@gmail.com)
                   </button>
                 </div>
                 <div className="relative">
