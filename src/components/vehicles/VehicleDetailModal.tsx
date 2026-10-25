@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import type { Vehicle, Trip, VehicleStatus } from '../../types/fleet';
 import { fleetService } from '../../services/fleetService';
+import { VehicleHeroIcon, getVehicleMetadata } from '../../utils/vehicleIcons';
 import {
   X,
-  Truck,
   User,
   Fuel,
   Battery,
@@ -72,45 +72,55 @@ export const VehicleDetailModal: React.FC<VehicleDetailModalProps> = ({
   };
 
   const isLowFuel = vehicle.fuel_level < 20;
+  const meta = getVehicleMetadata(vehicle.model, vehicle.battery_level);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-150">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" style={{ background: 'rgba(2,6,23,0.85)', backdropFilter: 'blur(12px)' }}>
+      <div className="rounded-3xl max-w-2xl w-full shadow-2xl overflow-hidden my-8" style={{ background: 'rgba(15,23,42,0.95)', border: '1px solid rgba(51,65,85,0.6)' }}>
         {/* Header */}
-        <div className="p-6 border-b border-slate-800 flex items-start justify-between bg-slate-950/40">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-              <Truck className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold text-white font-mono tracking-tight">
-                  {vehicle.registration_number}
-                </h2>
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize ${
-                    vehicle.status === 'active'
-                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                      : vehicle.status === 'idle'
-                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                      : vehicle.status === 'maintenance'
-                      ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
-                      : 'bg-slate-600/20 text-slate-400 border border-slate-600/30'
-                  }`}
-                >
-                  {vehicle.status}
-                </span>
+        <div className="relative px-6 pt-6 pb-5 border-b border-slate-800/60" style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.06) 0%, transparent 60%)' }}>
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-4">
+              <div
+                className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl shrink-0"
+                style={{ background: `rgba(${meta.accentColor === '#10b981' ? '16,185,129' : meta.accentColor === '#6366f1' ? '99,102,241' : meta.accentColor === '#06b6d4' ? '6,182,212' : meta.accentColor === '#8b5cf6' ? '139,92,246' : '59,130,246'}, 0.12)`, border: `1px solid rgba(${meta.accentColor === '#10b981' ? '16,185,129' : meta.accentColor === '#6366f1' ? '99,102,241' : meta.accentColor === '#06b6d4' ? '6,182,212' : meta.accentColor === '#8b5cf6' ? '139,92,246' : '59,130,246'}, 0.25)` }}
+              >
+                <VehicleHeroIcon model={vehicle.model} batteryLevel={vehicle.battery_level} size={34} />
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">{vehicle.model}</p>
+              <div>
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <h2 className="text-xl font-extrabold text-white font-mono tracking-tight">
+                    {vehicle.registration_number}
+                  </h2>
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold capitalize ${
+                      vehicle.status === 'active'
+                        ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                        : vehicle.status === 'idle'
+                        ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                        : vehicle.status === 'maintenance'
+                        ? 'bg-orange-500/15 text-orange-400 border border-orange-500/30'
+                        : 'bg-slate-600/15 text-slate-400 border border-slate-600/30'
+                    }`}
+                  >
+                    <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${vehicle.status === 'active' ? 'bg-emerald-400 animate-pulse' : vehicle.status === 'idle' ? 'bg-amber-400' : vehicle.status === 'maintenance' ? 'bg-orange-400' : 'bg-slate-500'}`} />
+                    {vehicle.status}
+                  </span>
+                  <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border ${meta.badgeBg}`}>
+                    {meta.label}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400">{vehicle.model}</p>
+              </div>
             </div>
-          </div>
 
-          <button
-            onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+            <button
+              onClick={onClose}
+              className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition cursor-pointer shrink-0"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Content Body */}

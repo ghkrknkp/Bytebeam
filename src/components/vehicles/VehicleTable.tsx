@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import type { Vehicle, VehicleStatus, VehicleFilters } from '../../types/fleet';
+import { VehicleTypeIcon } from '../../utils/vehicleIcons';
 import {
   Search,
   ArrowUpDown,
@@ -56,8 +57,8 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
         return true;
       })
       .sort((a, b) => {
-        let valA: any = a[filters.sortBy];
-        let valB: any = b[filters.sortBy];
+        let valA: any = (a as any)[filters.sortBy];
+        let valB: any = (b as any)[filters.sortBy];
 
         if (filters.sortBy === 'last_seen') {
           valA = new Date(valA).getTime();
@@ -216,10 +217,22 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
                   >
                     {/* Vehicle */}
                     <td className="py-3.5 px-4">
-                      <div className="font-mono font-bold text-white text-xs group-hover:text-indigo-400 transition">
-                        {vehicle.registration_number}
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center shrink-0 group-hover:border-indigo-500/50 transition shadow-sm">
+                          <VehicleTypeIcon model={vehicle.model} batteryLevel={vehicle.battery_level} size={18} />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-mono font-bold text-white text-xs group-hover:text-indigo-400 transition flex items-center gap-1.5">
+                            <span>{vehicle.registration_number}</span>
+                            {vehicle.battery_level !== null && (
+                              <span className="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold border border-cyan-500/30">
+                                EV
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-[11px] text-slate-400 truncate">{vehicle.model}</div>
+                        </div>
                       </div>
-                      <div className="text-[11px] text-slate-400">{vehicle.model}</div>
                     </td>
 
                     {/* Driver */}

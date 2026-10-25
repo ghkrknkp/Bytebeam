@@ -14,41 +14,56 @@ interface FleetMapProps {
   height?: string;
 }
 
-// Custom Leaflet DivIcon generator for vehicle status
-const createVehicleIcon = (status: string, isSelected: boolean) => {
-  let bgColor = 'bg-emerald-500';
-  let ringColor = 'ring-emerald-400/50';
+// Custom Leaflet DivIcon generator for modern telematics vehicle markers
+const createVehicleIcon = (vehicle: Vehicle, isSelected: boolean) => {
+  const isEV = vehicle.battery_level !== null || vehicle.model.toLowerCase().includes('ev') || vehicle.model.toLowerCase().includes('electric');
+  const status = vehicle.status;
+
+  let bgGradient = 'from-emerald-500 to-teal-600';
+  let glowColor = 'shadow-[0_0_12px_rgba(16,185,129,0.5)]';
+  let ringColor = 'ring-emerald-400/60';
 
   if (status === 'idle') {
-    bgColor = 'bg-amber-500';
-    ringColor = 'ring-amber-400/50';
+    bgGradient = 'from-amber-500 to-yellow-600';
+    glowColor = 'shadow-[0_0_12px_rgba(245,158,11,0.4)]';
+    ringColor = 'ring-amber-400/60';
   } else if (status === 'maintenance') {
-    bgColor = 'bg-orange-600';
-    ringColor = 'ring-orange-400/50';
+    bgGradient = 'from-orange-600 to-rose-600';
+    glowColor = 'shadow-[0_0_12px_rgba(234,88,12,0.4)]';
+    ringColor = 'ring-orange-400/60';
   } else if (status === 'offline') {
-    bgColor = 'bg-slate-500';
-    ringColor = 'ring-slate-400/50';
+    bgGradient = 'from-slate-600 to-slate-700';
+    glowColor = 'shadow-none';
+    ringColor = 'ring-slate-500/40';
   }
 
-  const selectedRing = isSelected ? 'ring-4 ring-indigo-400 scale-125 z-50' : 'ring-2';
+  const selectedRing = isSelected
+    ? 'ring-4 ring-indigo-400 scale-125 z-50 shadow-[0_0_24px_rgba(99,102,241,0.8)]'
+    : 'ring-2';
 
   const html = `
-    <div class="relative flex items-center justify-center transition-all duration-200">
-      <div class="w-8 h-8 rounded-full ${bgColor} ${ringColor} ${selectedRing} shadow-lg shadow-black/60 flex items-center justify-center text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="relative flex items-center justify-center transition-all duration-300">
+      ${status === 'active' ? '<div class="absolute -inset-1 rounded-full bg-emerald-400/30 animate-ping pointer-events-none"></div>' : ''}
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr ${bgGradient} ${glowColor} ${ringColor} ${selectedRing} flex items-center justify-center text-white border border-white/20">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10 17h4V5H2v12h3m11 0h2m-9 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0m9 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0M14 8h5l3 5v4h-8z"/>
         </svg>
       </div>
-      ${isSelected ? '<div class="absolute -top-1 -right-1 w-3 h-3 bg-indigo-400 rounded-full animate-ping"></div>' : ''}
+      ${
+        isEV
+          ? '<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-cyan-400 text-slate-950 font-black rounded-full flex items-center justify-center text-[10px] shadow-sm border border-slate-900 leading-none">⚡</div>'
+          : ''
+      }
+      ${isSelected ? '<div class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-indigo-400 rounded-full animate-ping"></div>' : ''}
     </div>
   `;
 
   return L.divIcon({
     html,
-    className: 'custom-vehicle-marker',
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-    popupAnchor: [0, -18],
+    className: 'custom-telematics-marker',
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -20],
   });
 };
 
@@ -250,7 +265,7 @@ export const FleetMap: React.FC<FleetMapProps> = ({
             <Marker
               key={vehicle.id}
               position={[vehicle.latitude, vehicle.longitude]}
-              icon={createVehicleIcon(vehicle.status, isSelected)}
+              icon={createVehicleIcon(vehicle, isSelected)}
               eventHandlers={{
                 click: () => onSelectVehicle(vehicle),
               }}
