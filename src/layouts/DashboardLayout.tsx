@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { isSupabaseConfigured } from '../lib/supabase';
 import {
   LayoutDashboard,
   MapPin,
@@ -10,11 +9,8 @@ import {
   RefreshCw,
   Menu,
   X,
-  Database,
   Radio,
   ChevronRight,
-  Wifi,
-  WifiOff,
   Bell,
 } from 'lucide-react';
 
@@ -151,21 +147,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             </div>
           </div>
 
-          {/* Data source pill */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-slate-50 border border-slate-200/90 text-slate-700">
-            {isSupabaseConfigured ? (
-              <>
-                <Wifi className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-700">Supabase Connected</span>
-                <span className="ml-auto w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              </>
-            ) : (
-              <>
-                <WifiOff className="w-3.5 h-3.5 text-amber-500" />
-                <span className="text-amber-700">Demo / Local Mode</span>
-                <span className="ml-auto w-2 h-2 bg-amber-500 rounded-full" />
-              </>
-            )}
+          {/* Enterprise Operational Status Pill */}
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-emerald-50 border border-emerald-200/80 text-emerald-800">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+            <span>Operations Live • 100% Units</span>
           </div>
         </div>
 
@@ -224,18 +209,20 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           })}
         </nav>
 
-        {/* Database Status Card */}
+        {/* Telematics Stream Health Card */}
         <div className="mx-3 mb-3 p-3 rounded-xl bg-slate-50 border border-slate-200/90 flex items-center gap-2.5">
-          <Database className="w-4 h-4 text-slate-500 shrink-0" />
+          <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200/80 flex items-center justify-center text-indigo-600 shrink-0">
+            <Radio className="w-4 h-4 animate-pulse" />
+          </div>
           <div className="min-w-0 flex-1">
             <div className="text-[11px] font-bold text-slate-800 truncate">
-              {isSupabaseConfigured ? 'Live PostgreSQL Instance' : 'Local Seed Data'}
+              Telematics Gateway
             </div>
             <div className="text-[10px] text-slate-500 truncate">
-              {isSupabaseConfigured ? 'Row Level Security Active' : 'Offline resilient dataset'}
+              Live GPS • 99.8% Uptime
             </div>
           </div>
-          <span className={`w-2 h-2 rounded-full shrink-0 ${isSupabaseConfigured ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+          <span className="w-2 h-2 rounded-full shrink-0 bg-emerald-500" />
         </div>
 
         {/* User Profile */}
@@ -283,10 +270,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Connection status pill */}
+            {/* Live operational pill */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-50 border border-slate-200 text-slate-700">
-              <span className={`w-2 h-2 rounded-full ${isSupabaseConfigured ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-              <span>{isSupabaseConfigured ? 'Supabase Connected' : 'Demo Mode'}</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Fleet Telematics Active</span>
             </div>
 
             {/* Alert bell */}

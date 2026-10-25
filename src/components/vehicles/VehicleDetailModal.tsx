@@ -234,7 +234,7 @@ export const VehicleDetailModal: React.FC<VehicleDetailModalProps> = ({
               Update Dispatch & Operational Status
             </div>
             <p className="text-[11px] text-slate-500 mb-3">
-              Changing status updates the vehicle in Supabase PostgreSQL and refreshes active dispatch routes.
+              Changing status updates the vehicle in the central fleet telematics database and refreshes active dispatch routes.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
