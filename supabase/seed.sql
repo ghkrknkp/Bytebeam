@@ -40,26 +40,26 @@ ON CONFLICT (id) DO UPDATE SET
 INSERT INTO public.trips (id, vehicle_id, start_location, end_location, distance_km, duration_minutes, average_speed, max_speed, idle_minutes, started_at, ended_at)
 VALUES
     -- Trips for KA-01-MJ-4021 (Tata Ace Gold EV)
-    ('t1111111-1111-4111-8111-111111111111', 'a1111111-1111-4111-8111-111111111111', 'Electronic City Hub', 'Koramangala 5th Block', 14.80, 42, 21.14, 48.50, 6, now() - INTERVAL '3 hours', now() - INTERVAL '2 hours 18 minutes'),
-    ('t1111111-1111-4111-8111-111111111112', 'a1111111-1111-4111-8111-111111111111', 'Koramangala 5th Block', 'Indiranagar 100ft Rd', 8.20, 26, 18.92, 42.00, 4, now() - INTERVAL '1 hour 40 minutes', now() - INTERVAL '1 hour 14 minutes'),
+    ('d1111111-1111-4111-8111-111111111111', 'a1111111-1111-4111-8111-111111111111', 'Electronic City Hub', 'Koramangala 5th Block', 14.80, 42, 21.14, 48.50, 6, now() - INTERVAL '3 hours', now() - INTERVAL '2 hours 18 minutes'),
+    ('d1111111-1111-4111-8111-111111111112', 'a1111111-1111-4111-8111-111111111111', 'Koramangala 5th Block', 'Indiranagar 100ft Rd', 8.20, 26, 18.92, 42.00, 4, now() - INTERVAL '1 hour 40 minutes', now() - INTERVAL '1 hour 14 minutes'),
 
     -- Trips for KA-03-AB-9812 (Mahindra Bolero)
-    ('t2222222-2222-4222-8222-222222222221', 'a2222222-2222-4222-8222-222222222222', 'Peenya Industrial Area', 'Majestic Bus Stand', 12.50, 38, 19.74, 52.00, 8, now() - INTERVAL '5 hours', now() - INTERVAL '4 hours 22 minutes'),
-    ('t2222222-2222-4222-8222-222222222222', 'a2222222-2222-4222-8222-222222222222', 'Majestic Bus Stand', 'MG Road Metro Station', 5.60, 20, 16.80, 38.00, 3, now() - INTERVAL '3 hours 10 minutes', now() - INTERVAL '2 hours 50 minutes'),
+    ('d2222222-2222-4222-8222-222222222221', 'a2222222-2222-4222-8222-222222222222', 'Peenya Industrial Area', 'Majestic Bus Stand', 12.50, 38, 19.74, 52.00, 8, now() - INTERVAL '5 hours', now() - INTERVAL '4 hours 22 minutes'),
+    ('d2222222-2222-4222-8222-222222222222', 'a2222222-2222-4222-8222-222222222222', 'Majestic Bus Stand', 'MG Road Metro Station', 5.60, 20, 16.80, 38.00, 3, now() - INTERVAL '3 hours 10 minutes', now() - INTERVAL '2 hours 50 minutes'),
 
     -- Trips for KA-51-EF-3345 (Eicher Pro)
-    ('t4444444-4444-4444-8444-444444444441', 'a4444444-4444-4444-8444-444444444444', 'Whitefield ITPL Gate', 'Marathahalli Bridge', 9.40, 28, 20.14, 55.00, 5, now() - INTERVAL '6 hours', now() - INTERVAL '5 hours 32 minutes'),
-    ('t4444444-4444-4444-8444-444444444442', 'a4444444-4444-4444-8444-444444444444', 'Marathahalli Bridge', 'Bellandur EcoSpace', 6.80, 22, 18.55, 46.00, 3, now() - INTERVAL '4 hours', now() - INTERVAL '3 hours 38 minutes'),
+    ('d4444444-4444-4444-8444-444444444441', 'a4444444-4444-4444-8444-444444444444', 'Whitefield ITPL Gate', 'Marathahalli Bridge', 9.40, 28, 20.14, 55.00, 5, now() - INTERVAL '6 hours', now() - INTERVAL '5 hours 32 minutes'),
+    ('d4444444-4444-4444-8444-444444444442', 'a4444444-4444-4444-8444-444444444444', 'Marathahalli Bridge', 'Bellandur EcoSpace', 6.80, 22, 18.55, 46.00, 3, now() - INTERVAL '4 hours', now() - INTERVAL '3 hours 38 minutes'),
 
     -- Trips for KA-05-PQ-7721 (Tata Ultra Electric)
-    ('t5555555-5555-4555-8555-555555555551', 'a5555555-5555-4555-8555-555555555555', 'Hebbal Flyover Depot', 'Manyata Tech Park', 7.50, 24, 18.75, 45.00, 4, now() - INTERVAL '7 hours', now() - INTERVAL '6 hours 36 minutes'),
-    ('t5555555-5555-4555-8555-555555555552', 'a5555555-5555-4555-8555-555555555555', 'Manyata Tech Park', 'Yelahanka Satellite Town', 11.20, 32, 21.00, 58.00, 2, now() - INTERVAL '2 hours 15 minutes', now() - INTERVAL '1 hour 43 minutes'),
+    ('d5555555-5555-4555-8555-555555555551', 'a5555555-5555-4555-8555-555555555555', 'Hebbal Flyover Depot', 'Manyata Tech Park', 7.50, 24, 18.75, 45.00, 4, now() - INTERVAL '7 hours', now() - INTERVAL '6 hours 36 minutes'),
+    ('d5555555-5555-4555-8555-555555555552', 'a5555555-5555-4555-8555-555555555555', 'Manyata Tech Park', 'Yelahanka Satellite Town', 11.20, 32, 21.00, 58.00, 2, now() - INTERVAL '2 hours 15 minutes', now() - INTERVAL '1 hour 43 minutes'),
 
     -- Trip for KA-02-TR-8833 (Mahindra Treo)
-    ('t7777777-7777-4777-8777-777777777771', 'a7777777-7777-4777-8777-777777777777', 'Jayanagar 4th Block', 'BTM Layout 2nd Stage', 4.50, 16, 16.88, 35.00, 2, now() - INTERVAL '4 hours 30 minutes', now() - INTERVAL '4 hours 14 minutes'),
+    ('d7777777-7777-4777-8777-777777777771', 'a7777777-7777-4777-8777-777777777777', 'Jayanagar 4th Block', 'BTM Layout 2nd Stage', 4.50, 16, 16.88, 35.00, 2, now() - INTERVAL '4 hours 30 minutes', now() - INTERVAL '4 hours 14 minutes'),
 
     -- Trip for KA-01-HH-9023 (Ashok Leyland)
-    ('taaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1', 'baaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', 'Sarjapur Wipro Circle', 'Bellandur Central Mall', 10.30, 35, 17.65, 48.00, 7, now() - INTERVAL '8 hours', now() - INTERVAL '7 hours 25 minutes')
+    ('daaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1', 'baaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', 'Sarjapur Wipro Circle', 'Bellandur Central Mall', 10.30, 35, 17.65, 48.00, 7, now() - INTERVAL '8 hours', now() - INTERVAL '7 hours 25 minutes')
 ON CONFLICT (id) DO UPDATE SET
     start_location = EXCLUDED.start_location,
     end_location = EXCLUDED.end_location,
@@ -77,33 +77,33 @@ ON CONFLICT (id) DO UPDATE SET
 -- Trip 1 (Electronic City Hub -> Koramangala 5th Block)
 INSERT INTO public.trip_points (id, trip_id, latitude, longitude, recorded_at, sequence_number)
 VALUES
-    ('p1111111-0001-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.8452, 77.6602, now() - INTERVAL '3 hours', 1),
-    ('p1111111-0002-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.8590, 77.6570, now() - INTERVAL '2 hours 55 minutes', 2),
-    ('p1111111-0003-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.8821, 77.6492, now() - INTERVAL '2 hours 47 minutes', 3),
-    ('p1111111-0004-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.9056, 77.6401, now() - INTERVAL '2 hours 39 minutes', 4),
-    ('p1111111-0005-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.9189, 77.6322, now() - INTERVAL '2 hours 31 minutes', 5),
-    ('p1111111-0006-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.9275, 77.6280, now() - INTERVAL '2 hours 24 minutes', 6),
-    ('p1111111-0007-4111-8111-111111111111', 't1111111-1111-4111-8111-111111111111', 12.9352, 77.6245, now() - INTERVAL '2 hours 18 minutes', 7),
+    ('f1111111-0001-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.8452, 77.6602, now() - INTERVAL '3 hours', 1),
+    ('f1111111-0002-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.8590, 77.6570, now() - INTERVAL '2 hours 55 minutes', 2),
+    ('f1111111-0003-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.8821, 77.6492, now() - INTERVAL '2 hours 47 minutes', 3),
+    ('f1111111-0004-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.9056, 77.6401, now() - INTERVAL '2 hours 39 minutes', 4),
+    ('f1111111-0005-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.9189, 77.6322, now() - INTERVAL '2 hours 31 minutes', 5),
+    ('f1111111-0006-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.9275, 77.6280, now() - INTERVAL '2 hours 24 minutes', 6),
+    ('f1111111-0007-4111-8111-111111111111', 'd1111111-1111-4111-8111-111111111111', 12.9352, 77.6245, now() - INTERVAL '2 hours 18 minutes', 7),
 
     -- Trip 2 (Koramangala 5th Block -> Indiranagar 100ft Rd)
-    ('p1111111-0008-4111-8111-111111111112', 't1111111-1111-4111-8111-111111111112', 12.9352, 77.6245, now() - INTERVAL '1 hour 40 minutes', 1),
-    ('p1111111-0009-4111-8111-111111111112', 't1111111-1111-4111-8111-111111111112', 12.9460, 77.6310, now() - INTERVAL '1 hour 34 minutes', 2),
-    ('p1111111-0010-4111-8111-111111111112', 't1111111-1111-4111-8111-111111111112', 12.9580, 77.6385, now() - INTERVAL '1 hour 27 minutes', 3),
-    ('p1111111-0011-4111-8111-111111111112', 't1111111-1111-4111-8111-111111111112', 12.9710, 77.6412, now() - INTERVAL '1 hour 20 minutes', 4),
-    ('p1111111-0012-4111-8111-111111111112', 't1111111-1111-4111-8111-111111111112', 12.9784, 77.6408, now() - INTERVAL '1 hour 14 minutes', 5),
+    ('f1111111-0008-4111-8111-111111111112', 'd1111111-1111-4111-8111-111111111112', 12.9352, 77.6245, now() - INTERVAL '1 hour 40 minutes', 1),
+    ('f1111111-0009-4111-8111-111111111112', 'd1111111-1111-4111-8111-111111111112', 12.9460, 77.6310, now() - INTERVAL '1 hour 34 minutes', 2),
+    ('f1111111-0010-4111-8111-111111111112', 'd1111111-1111-4111-8111-111111111112', 12.9580, 77.6385, now() - INTERVAL '1 hour 27 minutes', 3),
+    ('f1111111-0011-4111-8111-111111111112', 'd1111111-1111-4111-8111-111111111112', 12.9710, 77.6412, now() - INTERVAL '1 hour 20 minutes', 4),
+    ('f1111111-0012-4111-8111-111111111112', 'd1111111-1111-4111-8111-111111111112', 12.9784, 77.6408, now() - INTERVAL '1 hour 14 minutes', 5),
 
     -- Trip 3 (Peenya Industrial Area -> Majestic)
-    ('p2222222-0001-4222-8222-222222222221', 't2222222-2222-4222-8222-222222222221', 13.0310, 77.5255, now() - INTERVAL '5 hours', 1),
-    ('p2222222-0002-4222-8222-222222222221', 't2222222-2222-4222-8222-222222222221', 13.0180, 77.5412, now() - INTERVAL '4 hours 50 minutes', 2),
-    ('p2222222-0003-4222-8222-222222222221', 't2222222-2222-4222-8222-222222222221', 12.9980, 77.5620, now() - INTERVAL '4 hours 40 minutes', 3),
-    ('p2222222-0004-4222-8222-222222222221', 't2222222-2222-4222-8222-222222222221', 12.9840, 77.5750, now() - INTERVAL '4 hours 30 minutes', 4),
-    ('p2222222-0005-4222-8222-222222222221', 't2222222-2222-4222-8222-222222222221', 12.9765, 77.5729, now() - INTERVAL '4 hours 22 minutes', 5),
+    ('f2222222-0001-4222-8222-222222222221', 'd2222222-2222-4222-8222-222222222221', 13.0310, 77.5255, now() - INTERVAL '5 hours', 1),
+    ('f2222222-0002-4222-8222-222222222221', 'd2222222-2222-4222-8222-222222222221', 13.0180, 77.5412, now() - INTERVAL '4 hours 50 minutes', 2),
+    ('f2222222-0003-4222-8222-222222222221', 'd2222222-2222-4222-8222-222222222221', 12.9980, 77.5620, now() - INTERVAL '4 hours 40 minutes', 3),
+    ('f2222222-0004-4222-8222-222222222221', 'd2222222-2222-4222-8222-222222222221', 12.9840, 77.5750, now() - INTERVAL '4 hours 30 minutes', 4),
+    ('f2222222-0005-4222-8222-222222222221', 'd2222222-2222-4222-8222-222222222221', 12.9765, 77.5729, now() - INTERVAL '4 hours 22 minutes', 5),
 
     -- Trip 4 (Whitefield ITPL -> Marathahalli)
-    ('p4444444-0001-4444-8444-444444444441', 't4444444-4444-4444-8444-444444444441', 12.9860, 77.7310, now() - INTERVAL '6 hours', 1),
-    ('p4444444-0002-4444-8444-444444444441', 't4444444-4444-4444-8444-444444444441', 12.9780, 77.7210, now() - INTERVAL '5 hours 52 minutes', 2),
-    ('p4444444-0003-4444-8444-444444444441', 't4444444-4444-4444-8444-444444444441', 12.9690, 77.7120, now() - INTERVAL '5 hours 44 minutes', 3),
-    ('p4444444-0004-4444-8444-444444444441', 't4444444-4444-4444-8444-444444444441', 12.9560, 77.7011, now() - INTERVAL '5 hours 32 minutes', 4)
+    ('f4444444-0001-4444-8444-444444444441', 'd4444444-4444-4444-8444-444444444441', 12.9860, 77.7310, now() - INTERVAL '6 hours', 1),
+    ('f4444444-0002-4444-8444-444444444441', 'd4444444-4444-4444-8444-444444444441', 12.9780, 77.7210, now() - INTERVAL '5 hours 52 minutes', 2),
+    ('f4444444-0003-4444-8444-444444444441', 'd4444444-4444-4444-8444-444444444441', 12.9690, 77.7120, now() - INTERVAL '5 hours 44 minutes', 3),
+    ('f4444444-0004-4444-8444-444444444441', 'd4444444-4444-4444-8444-444444444441', 12.9560, 77.7011, now() - INTERVAL '5 hours 32 minutes', 4)
 ON CONFLICT (id) DO UPDATE SET
     trip_id = EXCLUDED.trip_id,
     latitude = EXCLUDED.latitude,

@@ -161,7 +161,7 @@ export const INITIAL_VEHICLES: Vehicle[] = [
 
 export const INITIAL_TRIPS: Trip[] = [
   {
-    id: 't1111111-1111-4111-8111-111111111111',
+    id: 'd1111111-1111-4111-8111-111111111111',
     vehicle_id: 'a1111111-1111-4111-8111-111111111111',
     start_location: 'Electronic City Hub',
     end_location: 'Koramangala 5th Block',
@@ -174,7 +174,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 2.3 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't1111111-1111-4111-8111-111111111112',
+    id: 'd1111111-1111-4111-8111-111111111112',
     vehicle_id: 'a1111111-1111-4111-8111-111111111111',
     start_location: 'Koramangala 5th Block',
     end_location: 'Indiranagar 100ft Rd',
@@ -187,7 +187,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 1.2 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't2222222-2222-4222-8222-222222222221',
+    id: 'd2222222-2222-4222-8222-222222222221',
     vehicle_id: 'a2222222-2222-4222-8222-222222222222',
     start_location: 'Peenya Industrial Area',
     end_location: 'Majestic Bus Stand',
@@ -200,7 +200,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 4.3 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't2222222-2222-4222-8222-222222222222',
+    id: 'd2222222-2222-4222-8222-222222222222',
     vehicle_id: 'a2222222-2222-4222-8222-222222222222',
     start_location: 'Majestic Bus Stand',
     end_location: 'MG Road Metro Station',
@@ -213,7 +213,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 2.8 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't4444444-4444-4444-8444-444444444441',
+    id: 'd4444444-4444-4444-8444-444444444441',
     vehicle_id: 'a4444444-4444-4444-8444-444444444444',
     start_location: 'Whitefield ITPL Gate',
     end_location: 'Marathahalli Bridge',
@@ -226,7 +226,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 5.5 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't4444444-4444-4444-8444-444444444442',
+    id: 'd4444444-4444-4444-8444-444444444442',
     vehicle_id: 'a4444444-4444-4444-8444-444444444444',
     start_location: 'Marathahalli Bridge',
     end_location: 'Bellandur EcoSpace',
@@ -239,7 +239,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 3.6 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't5555555-5555-4555-8555-555555555551',
+    id: 'd5555555-5555-4555-8555-555555555551',
     vehicle_id: 'a5555555-5555-4555-8555-555555555555',
     start_location: 'Hebbal Flyover Depot',
     end_location: 'Manyata Tech Park',
@@ -252,7 +252,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 6.6 * 3600 * 1000).toISOString(),
   },
   {
-    id: 't7777777-7777-4777-8777-777777777771',
+    id: 'd7777777-7777-4777-8777-777777777771',
     vehicle_id: 'a7777777-7777-4777-8777-777777777777',
     start_location: 'Jayanagar 4th Block',
     end_location: 'BTM Layout 2nd Stage',
@@ -265,7 +265,7 @@ export const INITIAL_TRIPS: Trip[] = [
     ended_at: new Date(Date.now() - 4.2 * 3600 * 1000).toISOString(),
   },
   {
-    id: 'taaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1',
+    id: 'daaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1',
     vehicle_id: 'baaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
     start_location: 'Sarjapur Wipro Circle',
     end_location: 'Bellandur Central Mall',
@@ -280,34 +280,34 @@ export const INITIAL_TRIPS: Trip[] = [
 ];
 
 export const INITIAL_TRIP_POINTS: Record<string, TripPoint[]> = {
-  't1111111-1111-4111-8111-111111111111': [
-    { id: 'p1', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.8452, longitude: 77.6602, recorded_at: '2026-03-24T06:00:00Z', sequence_number: 1 },
-    { id: 'p2', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.8590, longitude: 77.6570, recorded_at: '2026-03-24T06:07:00Z', sequence_number: 2 },
-    { id: 'p3', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.8821, longitude: 77.6492, recorded_at: '2026-03-24T06:15:00Z', sequence_number: 3 },
-    { id: 'p4', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.9056, longitude: 77.6401, recorded_at: '2026-03-24T06:23:00Z', sequence_number: 4 },
-    { id: 'p5', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.9189, longitude: 77.6322, recorded_at: '2026-03-24T06:31:00Z', sequence_number: 5 },
-    { id: 'p6', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.9275, longitude: 77.6280, recorded_at: '2026-03-24T06:37:00Z', sequence_number: 6 },
-    { id: 'p7', trip_id: 't1111111-1111-4111-8111-111111111111', latitude: 12.9352, longitude: 77.6245, recorded_at: '2026-03-24T06:42:00Z', sequence_number: 7 },
+  'd1111111-1111-4111-8111-111111111111': [
+    { id: 'p1', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.8452, longitude: 77.6602, recorded_at: '2026-03-24T06:00:00Z', sequence_number: 1 },
+    { id: 'p2', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.8590, longitude: 77.6570, recorded_at: '2026-03-24T06:07:00Z', sequence_number: 2 },
+    { id: 'p3', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.8821, longitude: 77.6492, recorded_at: '2026-03-24T06:15:00Z', sequence_number: 3 },
+    { id: 'p4', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.9056, longitude: 77.6401, recorded_at: '2026-03-24T06:23:00Z', sequence_number: 4 },
+    { id: 'p5', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.9189, longitude: 77.6322, recorded_at: '2026-03-24T06:31:00Z', sequence_number: 5 },
+    { id: 'p6', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.9275, longitude: 77.6280, recorded_at: '2026-03-24T06:37:00Z', sequence_number: 6 },
+    { id: 'p7', trip_id: 'd1111111-1111-4111-8111-111111111111', latitude: 12.9352, longitude: 77.6245, recorded_at: '2026-03-24T06:42:00Z', sequence_number: 7 },
   ],
-  't1111111-1111-4111-8111-111111111112': [
-    { id: 'p8', trip_id: 't1111111-1111-4111-8111-111111111112', latitude: 12.9352, longitude: 77.6245, recorded_at: '2026-03-24T07:20:00Z', sequence_number: 1 },
-    { id: 'p9', trip_id: 't1111111-1111-4111-8111-111111111112', latitude: 12.9460, longitude: 77.6310, recorded_at: '2026-03-24T07:26:00Z', sequence_number: 2 },
-    { id: 'p10', trip_id: 't1111111-1111-4111-8111-111111111112', latitude: 12.9580, longitude: 77.6385, recorded_at: '2026-03-24T07:33:00Z', sequence_number: 3 },
-    { id: 'p11', trip_id: 't1111111-1111-4111-8111-111111111112', latitude: 12.9710, longitude: 77.6412, recorded_at: '2026-03-24T07:40:00Z', sequence_number: 4 },
-    { id: 'p12', trip_id: 't1111111-1111-4111-8111-111111111112', latitude: 12.9784, longitude: 77.6408, recorded_at: '2026-03-24T07:46:00Z', sequence_number: 5 },
+  'd1111111-1111-4111-8111-111111111112': [
+    { id: 'p8', trip_id: 'd1111111-1111-4111-8111-111111111112', latitude: 12.9352, longitude: 77.6245, recorded_at: '2026-03-24T07:20:00Z', sequence_number: 1 },
+    { id: 'p9', trip_id: 'd1111111-1111-4111-8111-111111111112', latitude: 12.9460, longitude: 77.6310, recorded_at: '2026-03-24T07:26:00Z', sequence_number: 2 },
+    { id: 'p10', trip_id: 'd1111111-1111-4111-8111-111111111112', latitude: 12.9580, longitude: 77.6385, recorded_at: '2026-03-24T07:33:00Z', sequence_number: 3 },
+    { id: 'p11', trip_id: 'd1111111-1111-4111-8111-111111111112', latitude: 12.9710, longitude: 77.6412, recorded_at: '2026-03-24T07:40:00Z', sequence_number: 4 },
+    { id: 'p12', trip_id: 'd1111111-1111-4111-8111-111111111112', latitude: 12.9784, longitude: 77.6408, recorded_at: '2026-03-24T07:46:00Z', sequence_number: 5 },
   ],
-  't2222222-2222-4222-8222-222222222221': [
-    { id: 'p13', trip_id: 't2222222-2222-4222-8222-222222222221', latitude: 13.0310, longitude: 77.5255, recorded_at: '2026-03-24T04:00:00Z', sequence_number: 1 },
-    { id: 'p14', trip_id: 't2222222-2222-4222-8222-222222222221', latitude: 13.0180, longitude: 77.5412, recorded_at: '2026-03-24T04:10:00Z', sequence_number: 2 },
-    { id: 'p15', trip_id: 't2222222-2222-4222-8222-222222222221', latitude: 12.9980, longitude: 77.5620, recorded_at: '2026-03-24T04:20:00Z', sequence_number: 3 },
-    { id: 'p16', trip_id: 't2222222-2222-4222-8222-222222222221', latitude: 12.9840, longitude: 77.5750, recorded_at: '2026-03-24T04:30:00Z', sequence_number: 4 },
-    { id: 'p17', trip_id: 't2222222-2222-4222-8222-222222222221', latitude: 12.9765, longitude: 77.5729, recorded_at: '2026-03-24T04:38:00Z', sequence_number: 5 },
+  'd2222222-2222-4222-8222-222222222221': [
+    { id: 'p13', trip_id: 'd2222222-2222-4222-8222-222222222221', latitude: 13.0310, longitude: 77.5255, recorded_at: '2026-03-24T04:00:00Z', sequence_number: 1 },
+    { id: 'p14', trip_id: 'd2222222-2222-4222-8222-222222222221', latitude: 13.0180, longitude: 77.5412, recorded_at: '2026-03-24T04:10:00Z', sequence_number: 2 },
+    { id: 'p15', trip_id: 'd2222222-2222-4222-8222-222222222221', latitude: 12.9980, longitude: 77.5620, recorded_at: '2026-03-24T04:20:00Z', sequence_number: 3 },
+    { id: 'p16', trip_id: 'd2222222-2222-4222-8222-222222222221', latitude: 12.9840, longitude: 77.5750, recorded_at: '2026-03-24T04:30:00Z', sequence_number: 4 },
+    { id: 'p17', trip_id: 'd2222222-2222-4222-8222-222222222221', latitude: 12.9765, longitude: 77.5729, recorded_at: '2026-03-24T04:38:00Z', sequence_number: 5 },
   ],
-  't4444444-4444-4444-8444-444444444441': [
-    { id: 'p18', trip_id: 't4444444-4444-4444-8444-444444444441', latitude: 12.9860, longitude: 77.7310, recorded_at: '2026-03-24T03:00:00Z', sequence_number: 1 },
-    { id: 'p19', trip_id: 't4444444-4444-4444-8444-444444444441', latitude: 12.9780, longitude: 77.7210, recorded_at: '2026-03-24T03:08:00Z', sequence_number: 2 },
-    { id: 'p20', trip_id: 't4444444-4444-4444-8444-444444444441', latitude: 12.9690, longitude: 77.7120, recorded_at: '2026-03-24T03:16:00Z', sequence_number: 3 },
-    { id: 'p21', trip_id: 't4444444-4444-4444-8444-444444444441', latitude: 12.9560, longitude: 77.7011, recorded_at: '2026-03-24T03:28:00Z', sequence_number: 4 },
+  'd4444444-4444-4444-8444-444444444441': [
+    { id: 'p18', trip_id: 'd4444444-4444-4444-8444-444444444441', latitude: 12.9860, longitude: 77.7310, recorded_at: '2026-03-24T03:00:00Z', sequence_number: 1 },
+    { id: 'p19', trip_id: 'd4444444-4444-4444-8444-444444444441', latitude: 12.9780, longitude: 77.7210, recorded_at: '2026-03-24T03:08:00Z', sequence_number: 2 },
+    { id: 'p20', trip_id: 'd4444444-4444-4444-8444-444444444441', latitude: 12.9690, longitude: 77.7120, recorded_at: '2026-03-24T03:16:00Z', sequence_number: 3 },
+    { id: 'p21', trip_id: 'd4444444-4444-4444-8444-444444444441', latitude: 12.9560, longitude: 77.7011, recorded_at: '2026-03-24T03:28:00Z', sequence_number: 4 },
   ],
 };
 
