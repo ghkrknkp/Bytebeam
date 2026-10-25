@@ -27,7 +27,7 @@ export function getVehicleMetadata(model: string, batteryLevel: number | null): 
       label: 'EV 3-Wheeler',
       isEV: true,
       accentColor: '#10b981',
-      badgeBg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+      badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     };
   }
 
@@ -37,7 +37,7 @@ export function getVehicleMetadata(model: string, batteryLevel: number | null): 
       label: 'Heavy Hauler (HCV)',
       isEV: false,
       accentColor: '#6366f1',
-      badgeBg: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+      badgeBg: 'bg-indigo-50 text-indigo-700 border-indigo-200',
     };
   }
 
@@ -47,7 +47,7 @@ export function getVehicleMetadata(model: string, batteryLevel: number | null): 
       label: 'EV LCV',
       isEV: true,
       accentColor: '#06b6d4',
-      badgeBg: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+      badgeBg: 'bg-cyan-50 text-cyan-700 border-cyan-200',
     };
   }
 
@@ -57,7 +57,7 @@ export function getVehicleMetadata(model: string, batteryLevel: number | null): 
       label: 'Clean EV Logistics',
       isEV: true,
       accentColor: '#06b6d4',
-      badgeBg: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+      badgeBg: 'bg-cyan-50 text-cyan-700 border-cyan-200',
     };
   }
 
@@ -67,7 +67,7 @@ export function getVehicleMetadata(model: string, batteryLevel: number | null): 
       label: 'Fleet Cargo Van',
       isEV: false,
       accentColor: '#8b5cf6',
-      badgeBg: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+      badgeBg: 'bg-purple-50 text-purple-700 border-purple-200',
     };
   }
 
@@ -76,7 +76,7 @@ export function getVehicleMetadata(model: string, batteryLevel: number | null): 
     label: 'LCV Delivery',
     isEV: false,
     accentColor: '#3b82f6',
-    badgeBg: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
   };
 }
 

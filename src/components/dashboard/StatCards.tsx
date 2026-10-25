@@ -56,44 +56,44 @@ const colorMap: Record<StatColor, {
   trendColor: string;
 }> = {
   indigo: {
-    iconBg: 'rgba(99,102,241,0.12)',
-    iconColor: '#818cf8',
+    iconBg: '#eef2ff',
+    iconColor: '#4f46e5',
     gradientClass: 'stat-card-indigo',
-    valueColor: 'text-indigo-300',
-    borderHover: 'rgba(99,102,241,0.4)',
-    trendColor: 'text-indigo-400',
+    valueColor: 'text-indigo-900',
+    borderHover: '#a5b4fc',
+    trendColor: 'text-indigo-600',
   },
   emerald: {
-    iconBg: 'rgba(16,185,129,0.12)',
-    iconColor: '#34d399',
+    iconBg: '#ecfdf5',
+    iconColor: '#059669',
     gradientClass: 'stat-card-emerald',
-    valueColor: 'text-emerald-300',
-    borderHover: 'rgba(16,185,129,0.4)',
-    trendColor: 'text-emerald-400',
+    valueColor: 'text-emerald-900',
+    borderHover: '#6ee7b7',
+    trendColor: 'text-emerald-600',
   },
   rose: {
-    iconBg: 'rgba(244,63,94,0.12)',
-    iconColor: '#fb7185',
+    iconBg: '#fff1f2',
+    iconColor: '#e11d48',
     gradientClass: 'stat-card-rose',
-    valueColor: 'text-rose-300',
-    borderHover: 'rgba(244,63,94,0.4)',
-    trendColor: 'text-rose-400',
+    valueColor: 'text-rose-900',
+    borderHover: '#fda4af',
+    trendColor: 'text-rose-600',
   },
   blue: {
-    iconBg: 'rgba(59,130,246,0.12)',
-    iconColor: '#60a5fa',
+    iconBg: '#f0f9ff',
+    iconColor: '#0284c7',
     gradientClass: 'stat-card-blue',
-    valueColor: 'text-blue-300',
-    borderHover: 'rgba(59,130,246,0.4)',
-    trendColor: 'text-blue-400',
+    valueColor: 'text-sky-900',
+    borderHover: '#7dd3fc',
+    trendColor: 'text-sky-600',
   },
   amber: {
-    iconBg: 'rgba(245,158,11,0.12)',
-    iconColor: '#fbbf24',
+    iconBg: '#fffbeb',
+    iconColor: '#d97706',
     gradientClass: 'stat-card-amber',
-    valueColor: 'text-amber-300',
-    borderHover: 'rgba(245,158,11,0.4)',
-    trendColor: 'text-amber-400',
+    valueColor: 'text-amber-900',
+    borderHover: '#fcd34d',
+    trendColor: 'text-amber-600',
   },
 };
 
@@ -102,21 +102,17 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, subtitle, icon, color
   return (
     <div
       onClick={onClick}
-      className={`relative overflow-hidden rounded-2xl p-5 cursor-pointer transition-all duration-200 group hover:-translate-y-0.5 ${c.gradientClass}`}
-      style={{
-        background: 'rgba(15,23,42,0.85)',
-        border: '1px solid rgba(51,65,85,0.6)',
-      }}
+      className={`relative overflow-hidden rounded-2xl p-5 cursor-pointer transition-all duration-200 group hover:-translate-y-0.5 hover:shadow-md bg-white border border-slate-200 shadow-xs ${c.gradientClass}`}
       onMouseEnter={e => ((e.currentTarget as HTMLElement).style.borderColor = c.borderHover)}
-      onMouseLeave={e => ((e.currentTarget as HTMLElement).style.borderColor = 'rgba(51,65,85,0.6)')}
+      onMouseLeave={e => ((e.currentTarget as HTMLElement).style.borderColor = '#e2e8f0')}
     >
       {/* Top row: label + icon */}
       <div className="flex items-start justify-between mb-3">
-        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider leading-tight">
+        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider leading-tight">
           {title}
         </span>
         <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 shadow-xs"
           style={{ background: c.iconBg, color: c.iconColor }}
         >
           {icon}
@@ -129,10 +125,10 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, subtitle, icon, color
       </div>
 
       {/* Subtitle + trend */}
-      <div className="flex items-center justify-between mt-2">
-        <div className="text-[11px] text-slate-500 truncate pr-2">{subtitle}</div>
+      <div className="flex items-center justify-between mt-2.5">
+        <div className="text-[11px] text-slate-500 font-medium truncate pr-2">{subtitle}</div>
         {trend && (
-          <span className={`text-[10px] font-semibold ${c.trendColor} shrink-0 flex items-center gap-0.5`}>
+          <span className={`text-[10px] font-bold ${c.trendColor} shrink-0 flex items-center gap-0.5 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200/80`}>
             <TrendingUp className="w-3 h-3" />
             {trend}
           </span>
@@ -141,7 +137,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, subtitle, icon, color
 
       {/* Decorative corner glow */}
       <div
-        className="absolute -top-8 -right-8 w-24 h-24 rounded-full opacity-10 transition-opacity group-hover:opacity-20"
+        className="absolute -top-8 -right-8 w-24 h-24 rounded-full opacity-20 transition-opacity group-hover:opacity-35 pointer-events-none"
         style={{ background: c.iconColor, filter: 'blur(20px)' }}
       />
     </div>

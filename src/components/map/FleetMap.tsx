@@ -140,19 +140,19 @@ export const FleetMap: React.FC<FleetMapProps> = ({
   }, [tripPoints]);
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-slate-900" style={{ height }}>
+    <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-50" style={{ height }}>
       {/* Map Floating Control Header */}
       <div className="absolute top-4 left-4 z-[400] flex flex-wrap items-center gap-2 pointer-events-auto">
-        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl px-3.5 py-2 shadow-lg flex items-center gap-3 text-xs">
-          <div className="flex items-center gap-1.5 font-semibold text-white">
-            <Navigation className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="bg-white/95 backdrop-blur-md border border-slate-200 rounded-xl px-3.5 py-2 shadow-sm flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-1.5 font-bold text-slate-900">
+            <Navigation className="w-3.5 h-3.5 text-indigo-600" />
             <span>Vehicles: {vehicles.length}</span>
           </div>
 
-          <div className="h-3.5 w-px bg-slate-700" />
+          <div className="h-3.5 w-px bg-slate-200" />
 
           {/* Legend dots */}
-          <div className="flex items-center gap-2 text-[11px] text-slate-300">
+          <div className="flex items-center gap-2 text-[11px] text-slate-600 font-medium">
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500" /> Active
             </span>
@@ -163,22 +163,22 @@ export const FleetMap: React.FC<FleetMapProps> = ({
               <span className="w-2 h-2 rounded-full bg-orange-600" /> Maint
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-slate-500" /> Offline
+              <span className="w-2 h-2 rounded-full bg-slate-400" /> Offline
             </span>
           </div>
         </div>
 
         {/* Selected Trip Banner */}
         {selectedTrip && (
-          <div className="bg-indigo-950/90 backdrop-blur-md border border-indigo-700/80 rounded-xl px-3.5 py-1.5 shadow-lg flex items-center gap-3 text-xs text-indigo-200">
-            <div className="flex items-center gap-1.5 font-medium">
-              <Route className="w-3.5 h-3.5 text-indigo-400" />
+          <div className="bg-indigo-50/95 backdrop-blur-md border border-indigo-200 rounded-xl px-3.5 py-1.5 shadow-sm flex items-center gap-3 text-xs text-indigo-950 font-medium">
+            <div className="flex items-center gap-1.5">
+              <Route className="w-3.5 h-3.5 text-indigo-600" />
               <span>Route: {selectedTrip.start_location} → {selectedTrip.end_location} ({selectedTrip.distance_km} km)</span>
             </div>
             {onClearTrip && (
               <button
                 onClick={onClearTrip}
-                className="text-[11px] bg-indigo-800/80 hover:bg-indigo-700 px-2 py-0.5 rounded text-white cursor-pointer"
+                className="text-[11px] bg-indigo-600 hover:bg-indigo-700 px-2.5 py-0.5 rounded-lg text-white font-medium cursor-pointer shadow-sm transition"
               >
                 Clear Route
               </button>
@@ -189,55 +189,55 @@ export const FleetMap: React.FC<FleetMapProps> = ({
 
       {/* Selected Vehicle Floating Card (Bottom-Right) */}
       {selectedVehicle && (
-        <div className="absolute bottom-4 right-4 z-[400] max-w-sm w-full bg-slate-900/95 backdrop-blur-md border border-slate-700/90 rounded-2xl p-4 shadow-2xl text-slate-100 animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="absolute bottom-4 right-4 z-[400] max-w-sm w-full bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl p-4 shadow-xl text-slate-900 animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <div className="text-xs font-mono text-indigo-400 font-semibold tracking-wide">
+              <div className="text-xs font-mono text-indigo-600 font-bold tracking-wide">
                 {selectedVehicle.registration_number}
               </div>
-              <div className="font-bold text-white text-sm">{selectedVehicle.model}</div>
+              <div className="font-bold text-slate-900 text-sm">{selectedVehicle.model}</div>
             </div>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                 selectedVehicle.status === 'active'
-                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                   : selectedVehicle.status === 'idle'
-                  ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
                   : selectedVehicle.status === 'maintenance'
-                  ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
-                  : 'bg-slate-600/20 text-slate-400 border border-slate-600/30'
+                  ? 'bg-orange-50 text-orange-700 border border-orange-200'
+                  : 'bg-slate-100 text-slate-600 border border-slate-200'
               }`}
             >
               {selectedVehicle.status}
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-xs py-2 my-2 border-y border-slate-800">
+          <div className="grid grid-cols-2 gap-2 text-xs py-2 my-2 border-y border-slate-100">
             <div>
               <span className="text-slate-400 text-[11px] block">Driver</span>
-              <span className="font-medium text-slate-200">{selectedVehicle.driver_name}</span>
+              <span className="font-medium text-slate-800">{selectedVehicle.driver_name}</span>
             </div>
             <div>
               <span className="text-slate-400 text-[11px] block">Ignition</span>
-              <span className={`font-medium ${selectedVehicle.ignition_on ? 'text-emerald-400' : 'text-slate-400'}`}>
+              <span className={`font-medium ${selectedVehicle.ignition_on ? 'text-emerald-600' : 'text-slate-500'}`}>
                 {selectedVehicle.ignition_on ? 'ON (Engine Running)' : 'OFF'}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Fuel className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-mono text-slate-200">{selectedVehicle.fuel_level}% Fuel</span>
+              <Fuel className="w-3.5 h-3.5 text-amber-500" />
+              <span className="font-mono text-slate-800 font-semibold">{selectedVehicle.fuel_level}% Fuel</span>
             </div>
             {selectedVehicle.battery_level !== null && (
               <div className="flex items-center gap-1.5">
-                <Battery className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="font-mono text-slate-200">{selectedVehicle.battery_level}% Battery</span>
+                <Battery className="w-3.5 h-3.5 text-emerald-500" />
+                <span className="font-mono text-slate-800 font-semibold">{selectedVehicle.battery_level}% Battery</span>
               </div>
             )}
           </div>
 
-          <div className="text-[11px] text-slate-400 flex items-center justify-between">
+          <div className="text-[11px] text-slate-500 flex items-center justify-between">
             <span>Last Ping: {new Date(selectedVehicle.last_seen).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-            <span className="font-mono text-[10px] text-slate-500">
+            <span className="font-mono text-[10px] text-slate-400">
               {selectedVehicle.latitude.toFixed(4)}, {selectedVehicle.longitude.toFixed(4)}
             </span>
           </div>
@@ -272,25 +272,25 @@ export const FleetMap: React.FC<FleetMapProps> = ({
             >
               <Popup>
                 <div className="p-1 min-w-[200px]">
-                  <div className="font-bold text-slate-100 text-sm">{vehicle.registration_number}</div>
-                  <div className="text-xs text-slate-300 mb-2">{vehicle.model}</div>
-                  <div className="space-y-1 text-xs text-slate-300 border-t border-slate-700 pt-1.5">
+                  <div className="font-bold text-slate-900 text-sm">{vehicle.registration_number}</div>
+                  <div className="text-xs text-slate-500 mb-2">{vehicle.model}</div>
+                  <div className="space-y-1 text-xs text-slate-700 border-t border-slate-100 pt-1.5">
                     <div className="flex justify-between">
                       <span className="text-slate-400">Driver:</span>
-                      <span className="font-medium">{vehicle.driver_name}</span>
+                      <span className="font-medium text-slate-800">{vehicle.driver_name}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Status:</span>
-                      <span className="capitalize font-semibold text-emerald-400">{vehicle.status}</span>
+                      <span className="capitalize font-semibold text-emerald-600">{vehicle.status}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Fuel:</span>
-                      <span className="font-mono">{vehicle.fuel_level}%</span>
+                      <span className="font-mono font-semibold text-slate-800">{vehicle.fuel_level}%</span>
                     </div>
                   </div>
                   <button
                     onClick={() => onSelectVehicle(vehicle)}
-                    className="w-full mt-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-1 px-2 rounded cursor-pointer transition"
+                    className="w-full mt-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold py-1.5 px-2 rounded-lg cursor-pointer transition shadow-sm"
                   >
                     Select Vehicle Details
                   </button>
@@ -308,12 +308,12 @@ export const FleetMap: React.FC<FleetMapProps> = ({
               positions={routePositions}
               color="#4338ca"
               weight={7}
-              opacity={0.4}
+              opacity={0.3}
             />
             {/* Inner high-contrast route path */}
             <Polyline
               positions={routePositions}
-              color="#6366f1"
+              color="#4f46e5"
               weight={4}
               opacity={0.9}
               dashArray="6, 8"
@@ -322,11 +322,11 @@ export const FleetMap: React.FC<FleetMapProps> = ({
             {/* Start Waypoint Marker */}
             <Marker position={routePositions[0]} icon={createStartIcon()}>
               <Popup>
-                <div className="p-1 text-xs text-slate-200">
-                  <div className="font-bold text-emerald-400 flex items-center gap-1">
+                <div className="p-1 text-xs text-slate-800">
+                  <div className="font-bold text-emerald-600 flex items-center gap-1">
                     <Play className="w-3 h-3" /> Trip Origin
                   </div>
-                  <div>{selectedTrip?.start_location || 'Origin Point'}</div>
+                  <div className="font-medium">{selectedTrip?.start_location || 'Origin Point'}</div>
                   <div className="text-[10px] text-slate-400 mt-1">
                     Departed: {selectedTrip ? new Date(selectedTrip.started_at).toLocaleTimeString() : ''}
                   </div>
@@ -337,11 +337,11 @@ export const FleetMap: React.FC<FleetMapProps> = ({
             {/* End Waypoint Marker */}
             <Marker position={routePositions[routePositions.length - 1]} icon={createEndIcon()}>
               <Popup>
-                <div className="p-1 text-xs text-slate-200">
-                  <div className="font-bold text-indigo-400 flex items-center gap-1">
+                <div className="p-1 text-xs text-slate-800">
+                  <div className="font-bold text-indigo-600 flex items-center gap-1">
                     <Flag className="w-3 h-3" /> Trip Destination
                   </div>
-                  <div>{selectedTrip?.end_location || 'Destination'}</div>
+                  <div className="font-medium">{selectedTrip?.end_location || 'Destination'}</div>
                   <div className="text-[10px] text-slate-400 mt-1">
                     Arrived: {selectedTrip ? new Date(selectedTrip.ended_at).toLocaleTimeString() : ''}
                   </div>

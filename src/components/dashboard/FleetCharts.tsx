@@ -68,13 +68,15 @@ export const FleetCharts: React.FC<FleetChartsProps> = ({
       {/* Top Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Status Distribution Donut Chart */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-indigo-600" />
               Fleet Status Distribution
             </h3>
-            <span className="text-xs text-slate-400 font-mono">{vehicles.length} Units</span>
+            <span className="text-xs text-slate-600 font-mono bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/60">
+              {vehicles.length} Units
+            </span>
           </div>
 
           <div className="h-56 relative flex items-center justify-center">
@@ -95,87 +97,93 @@ export const FleetCharts: React.FC<FleetChartsProps> = ({
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1e293b',
-                    borderColor: '#334155',
-                    borderRadius: '0.5rem',
-                    color: '#f8fafc',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
+                    borderRadius: '0.75rem',
+                    color: '#0f172a',
                     fontSize: '12px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.08)',
                   }}
-                  itemStyle={{ color: '#f8fafc' }}
+                  itemStyle={{ color: '#0f172a' }}
                 />
               </PieChart>
             </ResponsiveContainer>
             {/* Center Label */}
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-xl font-bold text-white">{vehicles.length}</span>
+              <span className="text-xl font-bold text-slate-900">{vehicles.length}</span>
               <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Total</span>
             </div>
           </div>
 
           {/* Custom Status Legend */}
-          <div className="grid grid-cols-2 gap-2 mt-2 pt-3 border-t border-slate-800/80 text-xs">
+          <div className="grid grid-cols-2 gap-2 mt-2 pt-3 border-t border-slate-100 text-xs">
             {statusData.map(item => (
-              <div key={item.name} className="flex items-center justify-between text-slate-300">
+              <div key={item.name} className="flex items-center justify-between text-slate-600">
                 <span className="flex items-center gap-1.5">
                   <span
                     className="w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: STATUS_COLORS[item.name] }}
                   />
-                  <span>{item.name}</span>
+                  <span className="font-medium">{item.name}</span>
                 </span>
-                <span className="font-semibold text-white">{item.value}</span>
+                <span className="font-bold text-slate-900">{item.value}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Fuel Level Distribution Bar Chart */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Fuel className="w-4 h-4 text-amber-400" />
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Fuel className="w-4 h-4 text-amber-500" />
               Fuel Reserve Spread
             </h3>
-            <span className="text-xs text-amber-400/90 font-mono">Telemetry</span>
+            <span className="text-xs text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60 font-semibold font-mono">
+              Telemetry
+            </span>
           </div>
 
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={fuelRanges} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="range" stroke="#64748b" fontSize={10} tickLine={false} />
-                <YAxis stroke="#64748b" fontSize={10} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                <XAxis dataKey="range" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1e293b',
-                    borderColor: '#334155',
-                    borderRadius: '0.5rem',
-                    color: '#f8fafc',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
+                    borderRadius: '0.75rem',
+                    color: '#0f172a',
                     fontSize: '12px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.08)',
                   }}
-                  cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                  cursor={{ fill: 'rgba(241, 245, 249, 0.6)' }}
                 />
-                <Bar dataKey="count" fill="#f59e0b" radius={[4, 4, 0, 0]} name="Vehicles" />
+                <Bar dataKey="count" fill="#f59e0b" radius={[6, 6, 0, 0]} name="Vehicles" />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-2 pt-3 border-t border-slate-800/80 text-xs text-slate-400 flex justify-between items-center">
+          <div className="mt-2 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
             <span>Critical threshold alert (&lt;20%):</span>
-            <span className="font-bold text-rose-400 font-mono">
+            <span className="font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/60 font-mono">
               {vehicles.filter(v => v.fuel_level < 20).length} vehicles
             </span>
           </div>
         </div>
 
         {/* Trip Velocity & Distance Area Chart */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-indigo-600" />
               Trip Distance & Speed (km, km/h)
             </h3>
-            <span className="text-xs text-indigo-400 font-mono">Recent Trips</span>
+            <span className="text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200/60 font-semibold font-mono">
+              Recent Trips
+            </span>
           </div>
 
           <div className="h-56">
@@ -183,24 +191,25 @@ export const FleetCharts: React.FC<FleetChartsProps> = ({
               <AreaChart data={tripTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="distGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.25} />
                     <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="speedGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
+                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
                     <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} />
-                <YAxis stroke="#64748b" fontSize={10} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1e293b',
-                    borderColor: '#334155',
-                    borderRadius: '0.5rem',
-                    color: '#f8fafc',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
+                    borderRadius: '0.75rem',
+                    color: '#0f172a',
                     fontSize: '12px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.08)',
                   }}
                 />
                 <Area
@@ -225,26 +234,26 @@ export const FleetCharts: React.FC<FleetChartsProps> = ({
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-2 pt-3 border-t border-slate-800/80 text-xs text-slate-400 flex justify-between items-center">
+          <div className="mt-2 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
             <span>Telemetry source:</span>
-            <span className="text-slate-300 font-mono">GPS Waypoint Integrator</span>
+            <span className="text-slate-700 font-mono font-medium">GPS Waypoint Integrator</span>
           </div>
         </div>
       </div>
 
       {/* Operational & Telematics Alerts List */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600">
               <Bell className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">Active Operational Alerts</h3>
-              <p className="text-xs text-slate-400">Automated telematics threshold triggers and driver alerts</p>
+              <h3 className="text-sm font-bold text-slate-900">Active Operational Alerts</h3>
+              <p className="text-xs text-slate-500">Automated telematics threshold triggers and driver alerts</p>
             </div>
           </div>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
             {alerts.length} Pending
           </span>
         </div>
@@ -259,19 +268,19 @@ export const FleetCharts: React.FC<FleetChartsProps> = ({
                 onClick={() => onSelectVehicleById && onSelectVehicleById(alert.vehicleId)}
                 className={`p-4 rounded-xl border transition cursor-pointer flex items-start gap-3.5 ${
                   isCritical
-                    ? 'bg-rose-950/30 border-rose-800/50 hover:border-rose-600'
+                    ? 'bg-rose-50/50 border-rose-200 hover:border-rose-300 hover:bg-rose-50'
                     : isHigh
-                    ? 'bg-amber-950/20 border-amber-800/40 hover:border-amber-600'
-                    : 'bg-slate-950/50 border-slate-800 hover:border-slate-700'
+                    ? 'bg-amber-50/50 border-amber-200 hover:border-amber-300 hover:bg-amber-50'
+                    : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-slate-100/60'
                 }`}
               >
                 <div
                   className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
                     isCritical
-                      ? 'bg-rose-600/20 text-rose-400'
+                      ? 'bg-rose-100 text-rose-600'
                       : isHigh
-                      ? 'bg-amber-600/20 text-amber-400'
-                      : 'bg-slate-700/30 text-slate-400'
+                      ? 'bg-amber-100 text-amber-600'
+                      : 'bg-slate-200 text-slate-600'
                   }`}
                 >
                   <AlertTriangle className="w-4 h-4" />
@@ -279,13 +288,13 @@ export const FleetCharts: React.FC<FleetChartsProps> = ({
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono font-bold text-white tracking-wide">
+                    <span className="text-xs font-mono font-bold text-slate-900 tracking-wide">
                       {alert.registrationNumber}
                     </span>
-                    <span className="text-[10px] text-slate-500">{alert.timestamp}</span>
+                    <span className="text-[10px] text-slate-400">{alert.timestamp}</span>
                   </div>
-                  <div className="text-xs font-semibold text-slate-200">{alert.title}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
+                  <div className="text-xs font-semibold text-slate-800">{alert.title}</div>
+                  <div className="text-[11px] text-slate-600 mt-0.5 line-clamp-2 leading-relaxed">
                     {alert.message}
                   </div>
                 </div>
